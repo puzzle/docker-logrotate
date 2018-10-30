@@ -2,9 +2,21 @@
 
 This is a logrotate container for use as a sidecar container.
 
-Mount your volumes into the container and your `logrotate.conf` at `/opt/etc/logrotate.conf` and you're good to go!
+Mount your volumes and logrotate configuration into the container and you're good to go!
 
-Example logrotate.conf:
+# Configuration
+
+## state file location
+
+The logrotate state file should live on a persistent volume so logs are still correctly rotated in case the container is restarted.
+
+Set the environment variable `STATE_FILE` to change the state file path. Defaults to `/opt/logs/logrotate.status`.
+
+## logrotate.conf
+
+Mount your `logrotate.conf` at `/opt/etc/logrotate.conf`.
+
+Example logrotate.conf (remember to adjust `STATE_FILE` accordingly if you choose to mount the logs otherwhere than to `/opt/logs`):
 
 ```
 # see "man logrotate" for details
